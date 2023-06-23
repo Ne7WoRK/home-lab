@@ -1,0 +1,6 @@
+msql_container_name: "semaphore-mysql"
+mysql_image: "mysql:8.0"
+
+semaphore_container_name: "semaphore"
+semaphore_image: "semaphoreui/semaphore:latest"
+semaphore_playbook_path: "/tmp/semaphore/"
