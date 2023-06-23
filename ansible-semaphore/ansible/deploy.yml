@@ -1,12 +1,12 @@
 - name: Update APT packages across sofia-cluster
-  hosts: all
+  hosts: berry
   become: true
   
   tasks:
     - name: Deploy ansible-semaphore
       docker_compose:
         project_src: ../docker
-        project_name: my_project
+        project_name: ansible-semaphore
         state: present
         files:
           - docker-compose.yml
