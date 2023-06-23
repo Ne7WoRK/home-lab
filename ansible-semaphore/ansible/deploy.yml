@@ -1,6 +1,5 @@
 - name: Deploy ansible-semaphore
   hosts: berry
-  become: true
 
   tasks:
     - name: Execute ansible-semaphore docker-compose file
