@@ -5,7 +5,7 @@
   tasks:
     - name: Execute ansible-semaphore docker-compose file
       docker_compose:
-        project_src: ../../docker
+        project_src: "{{ playbook_dir }}/../docker"
         project_name: ansible-semaphore
         state: present
         files:
