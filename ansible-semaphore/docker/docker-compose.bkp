@@ -1,0 +1,42 @@
+version: "3.8"
+volumes:
+  semaphore-mysql:
+    name: {{ msql_container_name }}
+services:
+  semaphore-mysql:
+    restart: unless-stopped
+    expose:
+      - {{ mysql_port }}
+    image: {{ mysql_image }}
+    hostname: {{ msql_container_name }}
+    container_name: {{ msql_container_name }}
+    volumes:
+      - semaphore-mysql:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: {{ mysql_database }}
+      MYSQL_USER: semaphoric
+      MYSQL_PASSWORD: {{ mysql_password }}
+  semaphore:
+    hostname: {{ semaphore_container_name }}
+    container_name: {{ semaphore_container_name }}
+    restart: unless-stopped
+    ports:
+      - "{{ semaphore_public_port }}:{{ semaphore_container_port }}"
+    image: "{{ semaphore_image }}"
+    environment:
+      SEMAPHORE_DB_USER: {{ mysql_user }}
+      SEMAPHORE_DB_PASS: {{ mysql_password }}
+      SEMAPHORE_DB_HOST: {{ msql_container_name }} 
+      SEMAPHORE_DB_PORT: {{ mysql_port }}
+      SEMAPHORE_DB_DIALECT: {{ mysql_dialect }}
+      SEMAPHORE_DB: {{ mysql_database }}
+      SEMAPHORE_PLAYBOOK_PATH: {{ semaphore_playbook_path }}
+      SEMAPHORE_ADMIN_PASSWORD: {{ semaphore_admin_password }}
+      SEMAPHORE_ADMIN_NAME: {{ semaphore_admin_name }}
+      SEMAPHORE_ADMIN_EMAIL: {{ semaphore_admin_email }}
+      SEMAPHORE_ADMIN: {{ semaphore_admin_name }}
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: {{ semaphore_access_key }}
+      ANSIBLE_HOST_KEY_CHECKING: false 
+    depends_on:
+      - {{ mysql_container_name }}
