@@ -11,7 +11,7 @@ services:
     hostname: "{{ msql_container_name }}"
     container_name: "{{ msql_container_name }}"
     volumes:
-      - "{{ msql_container_name }}":/var/lib/mysql
+      - semaphore-mysql:/var/lib/mysql
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       MYSQL_DATABASE: "{{ mysql_database }}"
