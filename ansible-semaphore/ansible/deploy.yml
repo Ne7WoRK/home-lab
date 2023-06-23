@@ -19,7 +19,7 @@
               hostname: "{{ msql_container_name }}"
               container_name: "{{ msql_container_name }}"
               volumes:
-                - "{{ msql_container_name }}":/var/lib/mysql
+                - {{ msql_container_name }}:/var/lib/mysql
               environment:
                 MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
                 MYSQL_DATABASE: "{{ mysql_database }}"
